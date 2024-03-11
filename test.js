@@ -41,9 +41,9 @@ unless, > 3 payments && A > 100
 
 
 1. Variable for totalBalance = 0
-2. Variable for feePayment 
+2. Variable for total fees = 0 
 3. loop through the transactions and get the total amounts
-4. check if multiple A[i] occur in the same MONTHS 
+4. check if a month has multiple transactions 
 if > 3 transactions and transactions are > 100 dont subtract 5
 else subtract 5 
 
@@ -55,13 +55,14 @@ function solution(A, D){
 
     let totalBalance = 0
     let totalFees = 0
+    // dictionary to store {month: no of transactions}
     let monthlyTransactions = {}
 
     for (let i = 0 ; i < A.length; i++){
         let amount = A[i]
         let date = D[i]
         let x,month,_ = date.split("-")
-        // make the month a key to intialize an object who's key:value pairs are month: no of transactions
+        // make the month a key for the object who's key:value pairs are month: no of transactions
         let monthKey = {month}
        
         /*
@@ -77,14 +78,37 @@ function solution(A, D){
         monthlyTransactions[monthKey] = (monthlyTransactions[monthKey] || 0) + 1
 
         totalBalance += amount 
+
+        for (let month in monthlyTransactions){
+            /*
+           const person = {fname:"John", lname:"Doe", age:25}; 
+       
+           for (let x in person) {
+           txt += person[x] + " ";
+           }
+       
+           output = John Doe 25
+            */
+           let payment = monthlyTransactions[month]
+           if(payment >= 3 && amount > 100){
+            totalFees = 0
+           }
+           else{
+            totalFees = 5 * payment
+           }
+   
+       }
     }
+
+    let endBalance = totalBalance - totalFees
+    return endBalance
 
     //return totalBalance
     //return monthlyTransactions  
     
 
      //for (key in object) 
-    for (let month in monthlyTransactions){
+    //for (let month in monthlyTransactions){
          /*
         const person = {fname:"John", lname:"Doe", age:25}; 
     
@@ -94,12 +118,14 @@ function solution(A, D){
     
         output = John Doe 25
          */
-        let payment = monthlyTransactions[month]
-        if(payment >= 3 and )
+       // let payment = monthlyTransactions[month]
 
-    }
+    //}
+    
 }
 
 
 
-console.log(solution([100, 100 ,100, -10], ['2020-12-22', '2020-12-22', '2020-12-03', '2020-12-29']))
+console.log(solution([100, 100 ,100, -10], ['2020-12-22', '2020-12-22', '2020-12-03', '2020-12-29'])) // 230
+console.log(solution([180, -50 ,-25, -25], ['2020-01-01', '2020-01-01', '2020-01-01', '2020-01-31'])) // 25
+console.log(solution([-1, -1 , 0, -105, 1], ['2020-12-31', '2020-04-04', '2020-04-04', '2020-04-14', '2020-07-12'])) // 
