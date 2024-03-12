@@ -57,6 +57,8 @@ function solution(A, D){
     let totalFees = 0
     // dictionary to store {month: no of transactions}
     let monthlyTransactions = {}
+    let freeMonths = 0
+    
 
     for (let i = 0 ; i < A.length; i++){
         let amount = A[i]
@@ -89,19 +91,27 @@ function solution(A, D){
        
            output = John Doe 25
             */
+           //console.log(month)
+           
            let payment = monthlyTransactions[month]
+           //console.log(payment)
            if(payment >= 3 && amount > 100){
-            totalFees = 0
+            freeMonths ++
+            totalFees = 0 
            }
            else{
-            totalFees = 5 * payment
+            //let remainingMonths = totalMonths - month
+            //totalFees = 5 * payment
+            totalFees = 5 * (12 - freeMonths)
            }
    
        }
     }
 
     let endBalance = totalBalance - totalFees
+    console.log(freeMonths)
     return endBalance
+    
 
     //return totalBalance
     //return monthlyTransactions  
@@ -126,6 +136,6 @@ function solution(A, D){
 
 
 
-console.log(solution([100, 100 ,100, -10], ['2020-12-22', '2020-12-22', '2020-12-03', '2020-12-29'])) // 230
+//console.log(solution([100, 100 ,100, -10,], ['2020-12-22', '2020-12-22', '2020-12-03', '2020-12-29'])) // 230
 console.log(solution([180, -50 ,-25, -25], ['2020-01-01', '2020-01-01', '2020-01-01', '2020-01-31'])) // 25
-console.log(solution([-1, -1 , 0, -105, 1], ['2020-12-31', '2020-04-04', '2020-04-04', '2020-04-14', '2020-07-12'])) // 
+console.log(solution([-1, -1 , 0, -105, 1], ['2020-12-31', '2020-04-04', '2020-04-04', '2020-04-14', '2020-07-12'])) // -164
